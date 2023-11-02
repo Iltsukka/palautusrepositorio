@@ -5,6 +5,9 @@ def sort_by_points(player):
     return player.points
 
 
+
+
+
 class StatisticsService:
     def __init__(self, reader):
         self.reader = reader
@@ -27,12 +30,15 @@ class StatisticsService:
         return list(players_of_team)
 
     def top(self, how_many):
+
         sorted_players = sorted(
             self._players,
             reverse=True,
             key=sort_by_points
         )
-
+        
+       
+       
         result = []
         i = 0
         while i <= how_many:
