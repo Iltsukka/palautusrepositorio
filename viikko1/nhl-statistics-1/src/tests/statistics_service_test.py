@@ -1,5 +1,5 @@
 import unittest
-from statistics_service import StatisticsService
+from statistics_service import StatisticsService, SortBy
 from player import Player
 
 class PlayerReaderStub:
@@ -30,7 +30,17 @@ class TestStatisticsService(unittest.TestCase):
         self.assertAlmostEqual(merkkijonona, ['Semenko EDM 4 + 12 = 16', 'Kurri EDM 37 + 53 = 90', 'Gretzky EDM 35 + 89 = 124'])
 
     def test_top_returns_sorted_list(self):
-        pelaajat = self.stats.top(1)
+        pelaajat = self.stats.top(2)
         listassa = [str(pelaaja) for pelaaja in pelaajat]
         print(listassa)
         self.assertAlmostEqual(listassa, ['Gretzky EDM 35 + 89 = 124', 'Lemieux PIT 45 + 54 = 99'])
+
+    def test_top_returns_biggest_goal_scorers(self):
+        pelaajat = self.stats.top(3, SortBy.GOALS)
+        top_lista = [str(pelaaja) for pelaaja in pelaajat]
+        self.assertAlmostEqual(top_lista, ['Lemieux PIT 45 + 54 = 99', 'Yzerman DET 42 + 56 = 98', 'Kurri EDM 37 + 53 = 90'])
+
+    def test_top_returns_most_assists(self):
+        pelaajat = self.stats.top(2, SortBy.ASSISTS)
+        top_lista = [str(pelaaja) for pelaaja in pelaajat]
+        self.assertAlmostEqual(top_lista, ['Gretzky EDM 35 + 89 = 124', 'Yzerman DET 42 + 56 = 98'])

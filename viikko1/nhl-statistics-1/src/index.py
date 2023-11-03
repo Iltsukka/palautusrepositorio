@@ -1,11 +1,10 @@
-from statistics_service import StatisticsService
+from statistics_service import StatisticsService, SortBy
 from player_reader import PlayerReader
-from enum import Enum
 
-class SortBy(Enum):
-    POINTS = 1
-    GOALS = 2
-    ASSISTS = 3
+
+
+
+
 
 
 def main():
@@ -22,9 +21,13 @@ def main():
     for player in top_scorers:
         print(player)
     
-    #print("Top point goal scorers:")
-    #for player in stats.top(10, SortBy.GOALS):
-        #print(player)
+    print('Top goal scorers:')
+    for player in stats.top(10, SortBy.GOALS):
+        print(player)
+    
+    print('Top assists:')
+    for player in stats.top(10, SortBy.ASSISTS):
+        print(player)
 
 
 if __name__ == "__main__":
