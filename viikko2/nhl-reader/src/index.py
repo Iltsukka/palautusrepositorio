@@ -13,9 +13,11 @@ def main():
     for player_dict in response:
         player = Player(player_dict)
         players.append(player)
+    
+    sorted_players = sorted(players, key= lambda player : player.points, reverse=True)
 
     print("Suomalaiset pelaajat:\n")    
-    for player in players:
+    for player in sorted_players:
         if player.nationality == 'FIN':
             print(player)
 
