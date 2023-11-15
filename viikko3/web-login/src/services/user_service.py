@@ -39,6 +39,14 @@ class UserService:
     def validate(self, username, password, password_confirmation):
         if not username or not password:
             raise UserInputError("Username and password are required")
+        if len(username) < 3:
+            raise UserInputError('Username must be atleast 3 characters')
+        if not username.isalpha():
+            raise UserInputError('Username can contain only letters!')
+        if len(password) < 8 or password.isalpha():
+            raise UserInputError('Password cannot contain only letters and min length is 8')
+        if password != password_confirmation:
+            raise UserInputError('Passwords must match')
 
         # toteuta loput tarkastukset tänne ja nosta virhe virhetilanteissa
 
