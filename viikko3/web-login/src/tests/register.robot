@@ -35,6 +35,20 @@ Register With Nonmatching Password And Password Confirmation
     Click Button  Register
     Register Should Fail With Message  Passwords must match 
 
+Login After Successful Registration
+    Go To Login Page
+    Set Username  testaaja
+    Set Password  salainen1
+    Click Button  Login
+    Login Should Succeed
+
+Login After Failed Registration
+    Go To Login Page
+    Set Username  ak
+    Set Password  salainen1
+    Click Button  Login
+    Login Should Fail With Message  Invalid username or password
+
 *** Keywords ***
 Go To Register Page And Check It Is Correct
     Go To Register Page
@@ -59,3 +73,12 @@ Set Password
 Set Password2
     [Arguments]  ${password2}
     Input Password  password_confirmation  ${password2}
+
+Login Should Succeed
+    Main Page Should Be Open
+
+Login Should Fail With Message
+    [Arguments]  ${message}
+    Login Page Should Be Open
+    Page Should Contain  ${message}
+
