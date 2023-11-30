@@ -6,7 +6,7 @@ class TennisGame:
         self.m_score2 = 0
 
     def won_point(self, player_name):
-        if player_name == "player1":
+        if player_name == self.player1_name:
             self.m_score1 = self.m_score1 + 1
         else:
             self.m_score2 = self.m_score2 + 1
@@ -44,19 +44,20 @@ class TennisGame:
     def return_advantage_or_winning_score(self):
         minus_result = self.m_score1 - self.m_score2
 
+
         match minus_result:
             
             case 1:
-                return 'Advantage player1'
+                return f'Advantage {self.player1_name}'
             
             case -1:
-                return 'Advantage player2'
+                return f'Advantage {self.player2_name}'
             
             case _ if minus_result >= 2:
-                return 'Win for player1'
+                return f'Win for {self.player1_name}'
             
             case _:
-                return 'Win for player2'
+                return f'Win for {self.player2_name}'
     
     def return_score(self):
         score = ''
