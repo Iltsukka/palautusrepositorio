@@ -1,44 +1,29 @@
 from statistics2 import Statistics
 from player_reader import PlayerReader
 from matchers import And, HasAtLeast, PlaysIn, HasFewerThan, All, Not, Or
+from querybuilder import Querybuilder
 
 def main():
     url = "https://studies.cs.helsinki.fi/nhlstats/2022-23/players.txt"
     reader = PlayerReader(url)
     stats = Statistics(reader)
 
-    matcher3 = And(
-        HasAtLeast(5, "goals"),
-        HasAtLeast(20, "assists"),
-        PlaysIn("PHI")
-    )
-    matcher2 = And(
-        HasFewerThan(2, "goals"),
-        PlaysIn("NYR")
-    )
-    matcher4 = And(
-        Not(HasAtLeast(2, "goals")),
-        PlaysIn("NYR")
-    )
-    matcher5 = Or(
-        HasAtLeast(45, "goals"),
-        HasAtLeast(70, "assists")
-    )
-    matcher = And(
-        HasAtLeast(70, "points"),
-        Or(
-            PlaysIn("NYR"),
-            PlaysIn("FLA"),
-            PlaysIn("BOS")
-        )
-    )
+    query = Querybuilder()
+    m1 = query.playsIn('PHI').HasAtLeast(10, 'assists').HasFewerThan(5, 'goals').build()
+    
 
-    for player in stats.matches(matcher):
+    query = Querybuilder()
+    m2 = (query.playsIn("EDM").HasAtLeast(50, "points").build())
+    
+    query = Querybuilder()
+    matcher2 = query.oneOf(m1,m2).build()
+    for player in stats.matches(matcher2):
         print(player)
+
+  
 
     filtered_with_all = stats.matches(All())
     print(len(filtered_with_all))
-
 
 
 
